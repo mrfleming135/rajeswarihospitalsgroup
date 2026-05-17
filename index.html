@@ -630,6 +630,118 @@
       background: #04332d;
     }
 
+    .photo-lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.82);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 24px;
+      opacity: 0;
+      transition: opacity 0.28s ease;
+      touch-action: none;
+    }
+
+    .photo-lightbox.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .lightbox-content {
+      position: relative;
+      width: min(92vw, 980px);
+      max-height: 88vh;
+      animation: zoomInPhoto 0.28s ease;
+    }
+
+    @keyframes zoomInPhoto {
+      from {
+        transform: scale(0.86);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .lightbox-content img {
+      width: 100%;
+      max-height: 78vh;
+      object-fit: contain;
+      display: block;
+      border-radius: 22px;
+      background: #ffffff;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+    }
+
+    .lightbox-caption {
+      color: #ffffff;
+      text-align: center;
+      margin-top: 14px;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .lightbox-close,
+    .lightbox-prev,
+    .lightbox-next {
+      position: absolute;
+      border: none;
+      cursor: pointer;
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.25s ease;
+    }
+
+    .lightbox-close:hover,
+    .lightbox-prev:hover,
+    .lightbox-next:hover {
+      background: rgba(255, 255, 255, 0.30);
+      transform: scale(1.05);
+    }
+
+    .lightbox-close {
+      top: -18px;
+      right: -18px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      font-size: 28px;
+      line-height: 1;
+    }
+
+    .lightbox-prev,
+    .lightbox-next {
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      font-size: 34px;
+    }
+
+    .lightbox-prev {
+      left: -64px;
+    }
+
+    .lightbox-next {
+      right: -64px;
+    }
+
+    .branch-photo,
+    .case-photo {
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
     @media (max-width: 1000px) {
       .intro-card {
         grid-template-columns: 1fr;
@@ -748,6 +860,46 @@
         width: 46px;
         height: 46px;
         font-size: 21px;
+      }
+
+      .photo-lightbox {
+        padding: 14px;
+      }
+
+      .lightbox-content {
+        width: 96vw;
+      }
+
+      .lightbox-content img {
+        max-height: 70vh;
+        border-radius: 16px;
+      }
+
+      .lightbox-close {
+        top: -14px;
+        right: 4px;
+        width: 40px;
+        height: 40px;
+        font-size: 25px;
+      }
+
+      .lightbox-prev,
+      .lightbox-next {
+        width: 42px;
+        height: 42px;
+        font-size: 28px;
+      }
+
+      .lightbox-prev {
+        left: 8px;
+      }
+
+      .lightbox-next {
+        right: 8px;
+      }
+
+      .lightbox-caption {
+        font-size: 14px;
       }
     }
   </style>
@@ -1179,6 +1331,16 @@
     </div>
   </section>
 
+  <div class="photo-lightbox" id="photoLightbox">
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="lightboxClose" aria-label="Close photo">×</button>
+      <button class="lightbox-prev" id="lightboxPrev" aria-label="Previous photo">‹</button>
+      <img src="" alt="Hospital photo" id="lightboxImage" />
+      <button class="lightbox-next" id="lightboxNext" aria-label="Next photo">›</button>
+      <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
+  </div>
+
   <a href="#top" class="back-to-top" aria-label="Back to top">↑</a>
 
   <footer>
@@ -1207,6 +1369,121 @@
         window.scrollTo(0, 0);
       }, 100);
     });
+
+    const allPhotoRows = Array.from(document.querySelectorAll('.branch-photo-row, .case-photo-row'));
+    const lightbox = document.getElementById('photoLightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxCaption = document.getElementById('lightboxCaption');
+    const closeBtn = document.getElementById('lightboxClose');
+    const prevBtn = document.getElementById('lightboxPrev');
+    const nextBtn = document.getElementById('lightboxNext');
+
+    let currentPhotoGroup = [];
+    let currentPhotoIndex = 0;
+    let lightboxTouchStartX = 0;
+    let lightboxTouchEndX = 0;
+    let cardTouchStartX = 0;
+    let cardTouchStartY = 0;
+
+    function getBackgroundImageUrl(element) {
+      const bg = window.getComputedStyle(element).backgroundImage;
+      if (!bg || bg === 'none') return '';
+      return bg.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
+    }
+
+    function openLightbox(group, index) {
+      currentPhotoGroup = group;
+      currentPhotoIndex = index;
+
+      const selectedPhoto = currentPhotoGroup[currentPhotoIndex];
+      const imageUrl = getBackgroundImageUrl(selectedPhoto);
+      const caption = selectedPhoto.querySelector('span') ? selectedPhoto.querySelector('span').innerText : 'Hospital photo';
+
+      if (!imageUrl) return;
+
+      lightboxImage.src = imageUrl;
+      lightboxCaption.innerText = caption;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function showNextPhoto() {
+      if (!currentPhotoGroup.length) return;
+      currentPhotoIndex = (currentPhotoIndex + 1) % currentPhotoGroup.length;
+      openLightbox(currentPhotoGroup, currentPhotoIndex);
+    }
+
+    function showPrevPhoto() {
+      if (!currentPhotoGroup.length) return;
+      currentPhotoIndex = (currentPhotoIndex - 1 + currentPhotoGroup.length) % currentPhotoGroup.length;
+      openLightbox(currentPhotoGroup, currentPhotoIndex);
+    }
+
+    allPhotoRows.forEach(function (row) {
+      const photosInThisRow = Array.from(row.querySelectorAll('.branch-photo, .case-photo'));
+
+      photosInThisRow.forEach(function (photo, index) {
+        photo.addEventListener('click', function () {
+          openLightbox(photosInThisRow, index);
+        });
+
+        photo.addEventListener('touchstart', function (event) {
+          cardTouchStartX = event.changedTouches[0].screenX;
+          cardTouchStartY = event.changedTouches[0].screenY;
+        }, { passive: true });
+
+        photo.addEventListener('touchend', function (event) {
+          const cardTouchEndX = event.changedTouches[0].screenX;
+          const cardTouchEndY = event.changedTouches[0].screenY;
+          const movedX = Math.abs(cardTouchEndX - cardTouchStartX);
+          const movedY = Math.abs(cardTouchEndY - cardTouchStartY);
+
+          if (movedX < 12 && movedY < 12) {
+            event.preventDefault();
+            openLightbox(photosInThisRow, index);
+          }
+        }, { passive: false });
+      });
+    });
+
+    closeBtn.addEventListener('click', closeLightbox);
+    nextBtn.addEventListener('click', showNextPhoto);
+    prevBtn.addEventListener('click', showPrevPhoto);
+
+    lightbox.addEventListener('click', function (event) {
+      if (event.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (!lightbox.classList.contains('active')) return;
+      if (event.key === 'Escape') closeLightbox();
+      if (event.key === 'ArrowRight') showNextPhoto();
+      if (event.key === 'ArrowLeft') showPrevPhoto();
+    });
+
+    lightbox.addEventListener('touchstart', function (event) {
+      lightboxTouchStartX = event.changedTouches[0].screenX;
+    }, { passive: true });
+
+    lightbox.addEventListener('touchend', function (event) {
+      lightboxTouchEndX = event.changedTouches[0].screenX;
+      const swipeDistance = lightboxTouchStartX - lightboxTouchEndX;
+
+      if (swipeDistance > 45) {
+        showNextPhoto();
+      }
+
+      if (swipeDistance < -45) {
+        showPrevPhoto();
+      }
+    }, { passive: true });
   </script>
 
 </body>
