@@ -531,6 +531,7 @@
       padding: 34px;
       border: 1px solid rgba(6, 67, 59, 0.08);
       box-shadow: 0 10px 28px rgba(6, 67, 59, 0.06);
+      overflow: hidden;
     }
 
     .case-item h3 {
@@ -680,10 +681,51 @@
         grid-template-columns: 1fr;
       }
 
-      .branch-photo,
-      .case-photo {
+      .branch-photo {
         flex-basis: 82vw;
         height: 240px;
+      }
+
+      .case-list {
+        gap: 18px;
+      }
+
+      .case-item {
+        padding: 20px;
+        border-radius: 22px;
+      }
+
+      .case-item h3 {
+        font-size: 20px;
+      }
+
+      .case-item p {
+        font-size: 14.8px;
+        line-height: 1.55;
+      }
+
+      .case-photo-row {
+        gap: 12px;
+        margin-top: 16px;
+        padding: 8px 0 16px;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+      }
+
+      .case-photo {
+        flex: 0 0 88%;
+        height: 210px;
+        border-radius: 18px;
+        scroll-snap-align: start;
+      }
+
+      .case-photo span {
+        font-size: 13.5px;
+        left: 14px;
+        right: 14px;
+        bottom: 12px;
       }
 
       .back-to-top {
