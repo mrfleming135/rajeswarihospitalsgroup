@@ -200,7 +200,7 @@
       padding: 38px;
       box-shadow: var(--shadow);
       display: grid;
-      grid-template-columns: 0.8fr 1.2fr;
+      grid-template-columns: 360px 1fr;
       gap: 30px;
       align-items: center;
     }
@@ -219,6 +219,57 @@
 
     .founder-box p {
       color: #e7fffb;
+    }
+
+    .founder-image-card {
+      position: relative;
+      width: 100%;
+      max-width: 360px;
+      height: auto;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 14px 34px rgba(6, 67, 59, 0.18);
+      background: var(--green);
+      margin: 0 auto;
+    }
+
+    .founder-image-card img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      object-position: center top;
+      display: block;
+      background: #d7e8ea;
+    }
+
+    .founder-image-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(6, 67, 59, 0.92), rgba(6, 67, 59, 0.30), transparent 60%);
+    }
+
+    .founder-image-overlay {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 2;
+      padding: 24px 26px;
+      color: #ffffff;
+    }
+
+    .founder-image-overlay h3 {
+      font-size: 30px;
+      line-height: 1.1;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .founder-image-overlay p {
+      color: rgba(255, 255, 255, 0.94);
+      font-size: 16px;
+      font-weight: 700;
     }
 
     .intro-text p {
@@ -801,6 +852,18 @@
         border-radius: 26px;
       }
 
+      .founder-image-card {
+        max-width: 320px;
+        height: auto;
+      }
+
+      .founder-image-card img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        object-position: center top;
+      }
+
       .branch-grid,
       .stats-row,
       .hospital-content {
@@ -939,9 +1002,12 @@
   <section id="about">
     <div class="container">
       <div class="intro-card">
-        <div class="founder-box">
-          <h3>Dr. K. Ilayaraja</h3>
-          <p>Founder of Rajeswari Hospitals and Pulse24 Hospitals.</p>
+        <div class="founder-image-card">
+          <img src="dr-k-ilayaraja.jpg" alt="Dr. K. Ilayaraja" />
+          <div class="founder-image-overlay">
+            <h3>Dr. K. Ilayaraja</h3>
+            <p>Founder of Rajeswari Hospitals and Pulse24 Hospitals</p>
+          </div>
         </div>
         <div class="intro-text">
           <p>
