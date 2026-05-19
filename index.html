@@ -1438,27 +1438,12 @@
   </footer>
 
   <script>
+    /* Scroll bug fixed:
+       Removed forced window.scrollTo() on page load and beforeunload.
+       This stops the page from automatically jumping up/down on mobile swipe. */
     if ('scrollRestoration' in history) {
-      history.scrollRestoration = 'manual';
+      history.scrollRestoration = 'auto';
     }
-
-    window.addEventListener('beforeunload', function () {
-      window.scrollTo(0, 0);
-    });
-
-    window.addEventListener('load', function () {
-      if (window.location.hash) {
-        history.replaceState(null, '', window.location.pathname);
-      }
-
-      setTimeout(function () {
-        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-      }, 0);
-
-      setTimeout(function () {
-        window.scrollTo(0, 0);
-      }, 100);
-    });
 
     const allPhotoRows = Array.from(document.querySelectorAll('.branch-photo-row, .case-photo-row'));
     const lightbox = document.getElementById('photoLightbox');
