@@ -119,12 +119,7 @@
       margin-bottom: 20px;
     }
 
-    .hero-text p {
-      max-width: 650px;
-      color: rgba(255, 255, 255, 0.94);
-      font-size: 20px;
-      margin-bottom: 30px;
-    }
+    
 
     .hero-buttons {
       display: flex;
@@ -278,33 +273,13 @@
       font-size: 16.5px;
     }
 
-    .stats-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      margin-top: 24px;
-    }
+    
 
-    .stat {
-      background: var(--green-soft);
-      border-radius: 22px;
-      padding: 22px;
-      text-align: center;
-    }
+    
 
-    .stat strong {
-      display: block;
-      color: var(--green);
-      font-size: 34px;
-      line-height: 1;
-      margin-bottom: 8px;
-    }
+    
 
-    .stat span {
-      color: var(--muted);
-      font-weight: 700;
-      font-size: 14px;
-    }
+    
 
     .branches {
       background: var(--green-soft);
@@ -312,20 +287,27 @@
 
     .branch-grid {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(6, minmax(0, 1fr));
       gap: 18px;
+      align-items: stretch;
+      margin-top: 42px;
     }
 
     .branch-card {
-      background: white;
-      border-radius: 26px;
-      padding: 26px 20px;
+      background: #ffffff;
+      border-radius: 22px;
+      padding: 28px 16px;
       text-align: center;
-      box-shadow: 0 12px 32px rgba(6, 67, 59, 0.07);
-      border: 1px solid rgba(6, 67, 59, 0.08);
       text-decoration: none;
-      display: block;
-      transition: 0.25s ease;
+      color: inherit;
+      box-shadow: 0 18px 40px rgba(0, 75, 61, 0.08);
+      border: 1px solid rgba(0, 75, 61, 0.06);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      min-height: 172px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
     .branch-card:hover {
@@ -347,17 +329,9 @@
       font-size: 20px;
     }
 
-    .branch-card h3 {
-      color: var(--green);
-      font-size: 18px;
-      line-height: 1.25;
-      margin-bottom: 8px;
-    }
+    
 
-    .branch-card p {
-      color: var(--muted);
-      font-size: 14px;
-    }
+    
 
     .hospital-detail {
       background: var(--cream);
@@ -503,6 +477,11 @@
     .pulse24-2-photo-4 { background-image: url('pulse24-valparai-consultation-male.jpg'); }
     .pulse24-2-photo-5 { background-image: url('pulse24-valparai-patient-room.jpg'); }
     .pulse24-2-photo-6 { background-image: url('pulse24-valparai-ward-area.jpg'); }
+
+    .ashwin-photo-1 { background-image: url('ashwin-pollachi-exterior.jpg'); }
+    .ashwin-photo-2 { background-image: url('ashwin-pollachi-waiting-area.jpg'); }
+    .ashwin-photo-3 { background-image: url('ashwin-pollachi-doctor-room.jpg'); }
+    .ashwin-photo-4 { background-image: url('ashwin-pollachi-lab.jpg'); }
 
     .case-1-photo-1 { background-image: url('case-01-photo-01.jpg'); }
     .case-1-photo-2 { background-image: url('case-01-photo-02.jpg'); }
@@ -810,9 +789,7 @@
         grid-template-columns: repeat(2, 1fr);
       }
 
-      .stats-row {
-        grid-template-columns: repeat(3, 1fr);
-      }
+      
 
       .nav-links {
         display: none;
@@ -848,9 +825,7 @@
         letter-spacing: -1px;
       }
 
-      .hero-text p {
-        font-size: 17px;
-      }
+      
 
       .hero-buttons {
         margin-top: 35px;
@@ -973,6 +948,116 @@
         font-size: 14px;
       }
     }
+  
+    
+
+    
+
+    @media (max-width: 1200px) {
+      .branch-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 700px) {
+      .branch-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 440px) {
+      .branch-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+  
+    .branch-card h3 {
+      font-size: 20px;
+      line-height: 1.25;
+      margin: 16px 0 8px;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #004b3d;
+    }
+
+    .branch-card p {
+      font-size: 15px;
+      line-height: 1.4;
+      margin: 0;
+      min-height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #667085;
+    }
+
+  
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 26px;
+      align-items: stretch;
+    }
+
+    .stat {
+      min-height: 118px;
+      border-radius: 18px;
+      background: #eaf6f3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 22px 18px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 34px;
+      line-height: 1;
+      margin-bottom: 14px;
+      color: #004b3d;
+    }
+
+    .stat span {
+      display: block;
+      font-size: 15px;
+      line-height: 1.35;
+      font-weight: 700;
+      color: #667085;
+      min-height: 40px;
+    }
+
+    @media (max-width: 900px) {
+      .stats-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 560px) {
+      .stats-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+  
+    
+
+  
+    .hero-text p {
+      max-width: 720px;
+      line-height: 1.65;
+      margin-bottom: 32px;
+      white-space: normal;
+      color: #ffffff;
+    }
+
   </style>
 </head>
 
@@ -997,7 +1082,7 @@
       <div class="hero-text">
         <h1>Pulse24 Hospitals Group</h1>
         <p>
-          Pulse24 Hospitals and Rajeswari Hospitals Group serve Rameswaram and nearby communities with accessible, reliable and patient-focused healthcare.
+          Pulse24 Hospitals, Rajeswari Hospitals Group and Ashwin Hospital serve six locations, including Rameswaram Island, Mandapam, Pollachi and nearby communities, with accessible, reliable and patient-focused healthcare.
         </p>
         <div class="hero-buttons">
           <a href="#branches" class="btn btn-primary">View Our Branches</a>
@@ -1022,12 +1107,13 @@
             Dr. K. Ilayaraja built this hospital group with a simple vision: to make dependable healthcare available closer to people in rural and semi-urban areas.
           </p>
           <p>
-            Led by Pulse24 Hospitals, the group now runs 5 hospitals, supporting patients through general care, emergency support, diagnostics, surgical care and community-based healthcare services.
+            Led by Pulse24 Hospitals, the network now spans 6 hospitals, supporting patients through general care, emergency support, diagnostics, surgical care and community-based healthcare services, including Ashwin Hospital in Pollachi.
           </p>
           <div class="stats-row">
-            <div class="stat"><strong>2</strong><span>Pulse24 Branches</span></div>
-            <div class="stat"><strong>3</strong><span>Rajeswari Branches</span></div>
-            <div class="stat"><strong>5</strong><span>Total Hospitals</span></div>
+            <div class="stat"><strong>2</strong><span>Pulse24<br>Branches</span></div>
+            <div class="stat"><strong>3</strong><span>Rajeswari<br>Branches</span></div>
+            <div class="stat"><strong>1</strong><span>Ashwin<br>Hospital</span></div>
+            <div class="stat"><strong>6</strong><span>Total<br>Hospitals</span></div>
           </div>
         </div>
       </div>
@@ -1039,38 +1125,44 @@
       <div class="section-title">
         <small>Our Branches</small>
         <h2>Hospital locations</h2>
-        <p>Pulse24 branches are showcased first, followed by Rajeswari Hospital branches across Rameswaram and nearby areas.</p>
+        
       </div>
 
       <div class="branch-grid">
         <a href="#hospital-pulse24-1" class="branch-card">
           <div class="branch-icon">1</div>
-          <h3>Pulse24 Hospital</h3>
-          <p>Pamban Branch</p>
+          <h3>Pulse24<br>Hospital</h3>
+          <p>Pamban</p>
         </a>
 
         <a href="#hospital-pulse24-2" class="branch-card">
           <div class="branch-icon">2</div>
-          <h3>Pulse24 Hospital</h3>
-          <p>Valparai Branch</p>
+          <h3>Pulse24<br>Hospital</h3>
+          <p>Valparai</p>
         </a>
 
         <a href="#hospital-rameswaram" class="branch-card">
           <div class="branch-icon">3</div>
-          <h3>Rajeswari Hospital</h3>
+          <h3>Rajeswari<br>Hospital</h3>
           <p>Rameswaram</p>
         </a>
 
         <a href="#hospital-thangachimadam" class="branch-card">
           <div class="branch-icon">4</div>
-          <h3>Rajeswari Hospital</h3>
+          <h3>Rajeswari<br>Hospital</h3>
           <p>Thangachimadam</p>
         </a>
 
         <a href="#hospital-mandapam" class="branch-card">
           <div class="branch-icon">5</div>
-          <h3>Rajeswari Hospital</h3>
+          <h3>Rajeswari<br>Hospital</h3>
           <p>Mandapam</p>
+        </a>
+
+        <a href="#hospital-ashwin" class="branch-card">
+          <div class="branch-icon">6</div>
+          <h3>Ashwin<br>Hospital</h3>
+          <p>Pollachi</p>
         </a>
       </div>
     </div>
@@ -1271,6 +1363,40 @@
             <li>Sterilisation and utility room support</li>
             <li>Reception, waiting area and patient registration assistance</li>
             <li>Local community healthcare and referral support</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <section id="hospital-ashwin" class="hospital-detail light-detail">
+    <div class="container hospital-box">
+      <div class="hospital-heading">
+        <small>Ashwin Hospital</small>
+        <h2>Angalakurichi, Pollachi</h2>
+        <p>Ashwin Hospital in Pollachi provides accessible outpatient care with paediatric and general physician support for families in and around Angalakurichi.</p>
+      </div>
+
+      <div class="branch-photo-row">
+        <div class="branch-photo ashwin-photo-1"><span>Exterior View</span></div>
+        <div class="branch-photo ashwin-photo-2"><span>Waiting Area</span></div>
+        <div class="branch-photo ashwin-photo-3"><span>Doctor Room</span></div>
+        <div class="branch-photo ashwin-photo-4"><span>Laboratory</span></div>
+      </div>
+
+      <div class="hospital-content">
+        <div>
+          <h3>Services</h3>
+          <ul>
+            <li>General physician consultation</li>
+            <li>Paediatric consultation and child health support</li>
+            <li>Outpatient consultation for common illnesses and follow-up care</li>
+            <li>Basic health checks and clinical assessment</li>
+            <li>Laboratory services and basic diagnostic support</li>
+            <li>Waiting area and patient registration assistance</li>
+            <li>Fever, cough and seasonal illness management</li>
+            <li>Referral support for advanced treatment when needed</li>
           </ul>
         </div>
       </div>
@@ -1566,6 +1692,26 @@
         showPrevPhoto();
       }
     }, { passive: true });
+  </script>
+
+
+  <script>
+    // Refresh should always open from the top, without causing auto-scroll bugs while browsing.
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
+    }
+
+    window.addEventListener("load", function () {
+      const isReload =
+        performance.getEntriesByType("navigation")[0]?.type === "reload" ||
+        performance.navigation?.type === 1;
+
+      if (isReload) {
+        requestAnimationFrame(function () {
+          window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+        });
+      }
+    });
   </script>
 
 </body>
